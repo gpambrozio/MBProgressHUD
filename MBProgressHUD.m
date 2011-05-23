@@ -475,6 +475,22 @@
 	[self show:animated];
 }
 
+- (void)showWhileExecutingBlock:(void (^)(void))block animated:(BOOL)animated {
+	
+	blockForExecution = [block copy];
+
+	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self show:animated];
+		});
+		blockForExecution();
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self hide:animated];
+			[blockForExecution release];
+		});
+	});
+}
+
 - (void)launchExecution {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	

@@ -76,6 +76,8 @@ typedef enum {
 	SEL methodForExecution;
 	id targetForExecution;
 	id objectForExecution;
+	void(^blockForExecution)(void);
+	
 	BOOL useAnimation;
 	
     float yOffset;
@@ -316,6 +318,15 @@ typedef enum {
  * animations while disappearing.
  */
 - (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated;
+
+/** 
+ * Shows the HUD while the block is executing in a new thread, then hides the HUD.
+ *
+ * @param method The block to be executed while the HUD is shown, will be executed in a new thread.
+ * @param animated If set to YES the HUD will disappear using the current animationType. If set to NO the HUD will not use
+ * animations while disappearing.
+ */
+- (void)showWhileExecutingBlock:(void (^)(void))block animated:(BOOL)animated;
 
 @end
 
