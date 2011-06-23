@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
+#import "MBProgressHUD+TaskExecute.h"
 
 @interface HudDemoViewController : UIViewController <MBProgressHUDDelegate> {
 	MBProgressHUD *HUD;
@@ -25,6 +26,7 @@
 - (IBAction)showUsingBlocks:(id)sender;
 - (IBAction)showOnWindow:(id)sender;
 - (IBAction)showURL:(id)sender;
+- (IBAction)cancelableAction:(id)sender;
 
 - (void)myTask;
 - (void)myProgressTask;

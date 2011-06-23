@@ -161,6 +161,28 @@
 	HUD = [[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES] retain];
 }
 
+- (IBAction)cancelableAction:(id)sender {
+	NSString * ret = [MBProgressHUD showHUDAddedTo:self.navigationController.view
+										  animated:YES
+										 withLabel:@"Cancelable action" 
+									   cancelLabel:@"Tap to cancel"
+										  priority:DISPATCH_QUEUE_PRIORITY_DEFAULT
+									   executeTask:^id(void) {
+										   sleep(10);
+										   return [NSString stringWithString:@"teste de string"];
+									   }];
+	
+	if (ret) {
+		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+		[self.navigationController.view addSubview:HUD];
+		
+		HUD.delegate = self;
+		HUD.labelText = [NSString stringWithFormat:@"Return = %@", ret];
+		
+		[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+	}
+}
+
 #pragma mark -
 #pragma mark Execution code
 
