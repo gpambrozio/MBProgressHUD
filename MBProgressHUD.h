@@ -76,7 +76,6 @@ typedef enum {
 	SEL methodForExecution;
 	id targetForExecution;
 	id objectForExecution;
-	void(^blockForExecution)(void);
 	
 	BOOL useAnimation;
 	
@@ -327,6 +326,7 @@ typedef enum {
  * animations while disappearing.
  */
 - (void)showWhileExecutingBlock:(void (^)(void))block animated:(BOOL)animated;
+- (void)showAnimated:(BOOL)animated whileExecutingBlock:(void (^)(void))block executeAfter:(void (^)(void))afterBlock;
 
 @end
 
